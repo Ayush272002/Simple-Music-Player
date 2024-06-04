@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Music Player</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <div class="main_div">
-        <div class="music_container">
-            <h2 id="title">Mockingbird</h2>
-            <h3 id="artist">Eminem</h3>
-            <div class="img_container">
-                <img src="images/music1_img.jpg" alt="">
-            </div>
-            <audio src="music/music1_audio.mp3"></audio>
-
-            <!-- progress bar -->
-            <div class="progressbar_container" id="progress_container">
-                <div class="progress_duration_meter">
-                    <div id="current_time"></div>
-                    <div id="duration"></div>
-                </div>
-                <div class="progress_div" id="progress_div">
-                    <div class="progress" id="progress"></div>
-                </div>
-            </div>
-
-            <!-- controls -->
-            <div class="music_controls">
-                <i class="fas fa-backward" id="prev" title="Previous"></i>
-                <i class="fas fa-play main_button" id="play" title="Play"></i>
-                <i class="fas fa-forward" id="next" title="Next"></i>
-            </div>
+      <div class="music_container">
+        <h2 id="title">Mockingbird</h2>
+        <h3 id="artist">Eminem</h3>
+        <div class="img_container">
+          <img src="images/music1_img.jpg" alt="" />
         </div>
+        <audio src="music/music1_audio.mp3"></audio>
+
+        <!-- progress bar -->
+        <div class="progressbar_container" id="progress_container">
+          <div class="progress_duration_meter">
+            <div id="current_time"></div>
+            <div id="duration"></div>
+          </div>
+          <div class="progress_div" id="progress_div">
+            <input
+              type="range"
+              class="progress"
+              id="progress"
+              min="0"
+              max="100"
+              value="0"
+            />
+          </div>
+        </div>
+
+        <!-- controls -->
+        <div class="music_controls">
+          <i class="fas fa-backward" id="prev" title="Previous"></i>
+          <i class="fas fa-play main_button" id="play" title="Play"></i>
+          <i class="fas fa-forward" id="next" title="Next"></i>
+        </div>
+      </div>
     </div>
 
     <script src="script/script.js"></script>
-</body>
+  </body>
 </html>
