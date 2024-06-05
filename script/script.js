@@ -10,6 +10,33 @@ let currentRotation = 0;
 let lastTimestamp = 0;
 let isDragging = false;
 
+// Reset button style function
+let resetTimeoutId = null;
+
+function resetButtonStyle(button) {
+  if (resetTimeoutId) {
+    clearTimeout(resetTimeoutId);
+  }
+
+  if (button.classList.contains("main_button")) {
+    // If the button is the play/pause button
+    button.style.backgroundColor = "#111"; 
+    button.style.color = "#f6f6f6"; 
+    resetTimeoutId = setTimeout(() => {
+      button.style.backgroundColor = "#111"; 
+      button.style.color = "#f6f6f6"; 
+      resetTimeoutId = null;
+    }, 500);
+  } else {
+    // If the button is not the play/pause button
+    button.style.color = "gray"; 
+    resetTimeoutId = setTimeout(() => {
+      button.style.color = "#111111"; 
+      resetTimeoutId = null;
+    }, 500);
+  }
+}
+
 const rotateImage = (timestamp) => {
   if (!lastTimestamp) lastTimestamp = timestamp;
   const elapsed = timestamp - lastTimestamp;
@@ -37,6 +64,9 @@ const playMusic = () => {
 };
 
 play.addEventListener("click", playMusic);
+play.addEventListener("touchstart", () => {
+  resetButtonStyle(play);
+});
 
 // changing music data
 const artist = document.getElementById("artist");
@@ -119,12 +149,15 @@ music.addEventListener("timeupdate", (event) => {
   current_time.textContent = `${min_current}:${sec_current}`;
 });
 
-// Handle dragging start
+// Handle dragging start for mouse and touch
 progress_slider.addEventListener("mousedown", () => {
   isDragging = true;
 });
+progress_slider.addEventListener("touchstart", () => {
+  isDragging = true;
+});
 
-// Handle dragging move
+// Handle dragging move for mouse and touch
 progress_slider.addEventListener("input", (event) => {
   const { value } = event.target;
   const { duration } = music;
@@ -133,8 +166,17 @@ progress_slider.addEventListener("input", (event) => {
   progress_slider.style.background = `linear-gradient(to right, #000 ${value}%, #fff ${value}%)`;
 });
 
-// Handle dragging end
+// Handle dragging end for mouse and touch
 progress_slider.addEventListener("mouseup", (event) => {
+  const { value } = event.target;
+  const { duration } = music;
+  music.currentTime = (value / 100) * duration;
+  if (isPlaying) {
+    music.play();
+  }
+  isDragging = false;
+});
+progress_slider.addEventListener("touchend", (event) => {
   const { value } = event.target;
   const { duration } = music;
   music.currentTime = (value / 100) * duration;
@@ -148,7 +190,14 @@ progress_slider.addEventListener("mouseup", (event) => {
 music.addEventListener("ended", nextSong);
 
 next.addEventListener("click", nextSong);
+next.addEventListener("touchstart", () => {
+  resetButtonStyle(next);
+});
+
 prev.addEventListener("click", prevSong);
+prev.addEventListener("touchstart", () => {
+  resetButtonStyle(prev);
+});
 
 // Function to format time in mm:ss format
 function formatTime(time) {
